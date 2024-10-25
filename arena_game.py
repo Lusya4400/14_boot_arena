@@ -9,6 +9,9 @@ class Thing:
         self.attack = attack
         self.life = life
 
+    def __str__(self):
+        return self.name
+
 
 brone_protection = Thing(name='Brone_protection',
                          protection=0.1, attack=0, life=1)
@@ -30,7 +33,7 @@ things = (brone_protection, magic_ring, invisible_coat, gun,
 
 def make_things():
     things_random = []
-    for i in range(1, randint(2, 5)):
+    for _ in range(1, randint(2, 5)):
         thing = choice(things)
         things_random.append(thing)
     return things_random
@@ -44,15 +47,20 @@ class Person:
         self.base_attak = base_attak
         self.base_protection = base_protection
 
-    def __str__(self):
-        return f'{self.__class__.__name__}, {self.name}, уровкнь жизни: {self.hp}, атака: {self.base_attak}, процент защиты: {self.base_protection}.'
+    def get_hp(self, attack):
+        demage = round(attack - attack * self.base_protection, 0)
+        self.hp -= demage
+        return demage
 
-    
+
+    def __str__(self):
+        return f'{self.name} уровень жизни: {self.hp}'
+
 
     def set_things(self, things):
         for thing in things:
             self.hp += thing.life
-            self.base_attack += thing.attack
+            self.base_attak += thing.attack
             self.base_protection += thing.protection
 
 
@@ -61,6 +69,7 @@ class Paladin(Person):
     def __init__(self, name):
         super().__init__(name)
         self.hp *= 2
+        self.base_attak = self.base_attak
         self.base_protection *= 2
 
 
@@ -68,13 +77,36 @@ class Warrior(Person):
 
     def __init__(self, name):
         super().__init__(name)
+        self.hp = self.hp
         self.base_attak *= 2
+        self.base_protection = self.base_protection
 
+
+list_pers = []
 pers1 = Paladin('Gorr')
+pers1.set_things(make_things())
 pers2 = Warrior('Bishop')
+pers2.set_things(make_things())
+pers3 = Warrior('Fork')
+pers3.set_things(make_things())
+pers4 = Warrior('Snake')
+pers4.set_things(make_things())
+list_pers.append(pers1)
+list_pers.append(pers2)
+list_pers.append(pers3)
+list_pers.append(pers4)
 
-things_random = make_things()
-pers1.set_things(things_random)
+while len(list_pers) > 1:
+    pers_attack = choice(list_pers)
+    list_pers.remove(pers_attack)
+    pers_protect = choice(list_pers)
+    list_pers.append(pers_attack)
+    dem = pers_protect.get_hp(pers_attack.base_attak)
+    if pers_protect.hp < 0:
+        print(f'{pers_protect} убит')
+        list_pers.remove(pers_protect)
+    print(f'{pers_attack} наносит удар по {pers_protect} на {dem} урона.')
 
+print(f'Победил {list_pers[0]}')
 print(pers1)
 print(pers2)
