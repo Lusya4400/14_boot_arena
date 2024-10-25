@@ -87,10 +87,13 @@ pers3 = Warrior('Fork')
 pers3.set_things(make_things())
 pers4 = Warrior('Snake')
 pers4.set_things(make_things())
+pers5 = Paladin('Elsa')
+pers5.set_things(make_things())
 list_pers.append(pers1)
 list_pers.append(pers2)
 list_pers.append(pers3)
 list_pers.append(pers4)
+list_pers.append(pers5)
 
 while len(list_pers) > 1:
     pers_attack = choice(list_pers)
@@ -98,9 +101,9 @@ while len(list_pers) > 1:
     pers_protect = choice(list_pers)
     list_pers.append(pers_attack)
     dem = pers_protect.get_hp(pers_attack.base_attak)
-    if pers_protect.hp < 0:
+    print(f'{pers_attack} наносит удар на {dem} урона по {pers_protect}.')
+    if pers_protect.hp <= 0:
         print(f'{pers_protect} убит')
         list_pers.remove(pers_protect)
-    print(f'{pers_attack} наносит удар по {pers_protect} на {dem} урона.')
 
 print(f'Победил {list_pers[0]}')
