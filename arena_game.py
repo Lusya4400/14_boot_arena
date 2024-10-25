@@ -108,5 +108,3 @@ while len(list_pers) > 1:
     print(f'{pers_attack} наносит удар по {pers_protect} на {dem} урона.')
 
 print(f'Победил {list_pers[0]}')
-print(pers1)
-print(pers2)
