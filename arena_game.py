@@ -69,7 +69,6 @@ class Paladin(Person):
     def __init__(self, name):
         super().__init__(name)
         self.hp *= 2
-        self.base_attak = self.base_attak
         self.base_protection *= 2
 
 
@@ -77,10 +76,7 @@ class Warrior(Person):
 
     def __init__(self, name):
         super().__init__(name)
-        self.hp = self.hp
         self.base_attak *= 2
-        self.base_protection = self.base_protection
-
 
 list_pers = []
 pers1 = Paladin('Gorr')
