@@ -24,16 +24,16 @@ magic_helmet = Thing(name='Magic_helmet', protection=0.08,
 shining_bomb = Thing(name='shining_bomb', protection=0.01,
                      attack=3, life=0)
 
+things = (brone_protection, magic_ring, invisible_coat, gun,
+          laser_automat, magic_helmet, shining_bomb)
+
+
 def make_things():
-    things = []
+    things_random = []
     for i in range(1, randint(2, 5)):
-        thing = choice(brone_protection,
-                       magic_ring,
-                       invisible_coat, gun, 
-                       laser_automat, magic_helmet,
-                       shining_bomb)
-        things.append(thing)
-    return things
+        thing = choice(things)
+        things_random.append(thing)
+    return things_random
 
 
 class Person:
@@ -73,7 +73,8 @@ class Warrior(Person):
 pers1 = Paladin('Gorr')
 pers2 = Warrior('Bishop')
 
-pers1.set_things(make_things())
+things_random = make_things()
+pers1.set_things(things_random)
 
 print(pers1)
 print(pers2)
